@@ -1,5 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter, output } from '@angular/core';
 
+interface User {
+  id: string;
+  name: string;
+  avatar: string;
+}
 @Component({
   selector: 'app-user',
   standalone: true,
@@ -8,15 +13,19 @@ import { Component, Input } from '@angular/core';
 })
 export class UserComponent {
   // The old way:
-  @Input({ required: true }) avatar!: string | null;
-  @Input({ required: true }) name!: string;
+  @Input({ required: true }) user!: User;
+  //Old way
+  @Output() select = new EventEmitter<string>();
+
+  //new way
+  // select = output<string>();
 
   // The new way: using input signals - read only
   // avatar = input.required<string>();
   // name = input.required<string>();
 
   get imagePath() {
-    return `/users/${this.avatar}`;
+    return `/users/${this.user.avatar}`;
   }
   // The new way: using computed on sygnals
   // imagePath = computed(() => {
@@ -24,6 +33,6 @@ export class UserComponent {
   // });
 
   onSelectUser() {
-    this.select.emit(this.id);
+    this.select.emit(this.user.id);
   }
 }
