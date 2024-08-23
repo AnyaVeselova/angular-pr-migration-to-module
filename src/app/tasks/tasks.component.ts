@@ -21,14 +21,4 @@ export class TasksComponent {
   onCompleteTask(id: string) {
     this.tasks = this.tasks.filter((task) => task.id !== id);
   }
-
-  onAddButtonClick(userId: string) {
-    this.tasks.push({
-      id: 't' + (this.tasks.length + 1),
-      userId,
-      title: 'New Task',
-      summary: 'New Task Summary',
-      dueDate: '2025-12-31',
-    });
-  }
 }
