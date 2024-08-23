@@ -1,4 +1,4 @@
-const dummyTasks = [
+export const dummyTasks = [
   {
     id: 't1',
     userId: 'u1',
@@ -22,4 +22,4 @@ const dummyTasks = [
       'Prepare and describe an issue template which will help with project management',
     dueDate: '2024-06-15',
   },
-]
+];
