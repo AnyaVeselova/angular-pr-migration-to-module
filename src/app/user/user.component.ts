@@ -1,7 +1,4 @@
-import { Component, signal, computed } from '@angular/core';
-import { DUMMY_USERS } from '../dummy-users';
-
-const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-user',
@@ -10,11 +7,23 @@ const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
   styleUrl: './user.component.css',
 })
 export class UserComponent {
-  selectedUser = signal(DUMMY_USERS[randomIndex]);
-  imagePath = computed(() => `/users/${this.selectedUser().avatar}`);
+  // The old way:
+  @Input({ required: true }) avatar!: string | null;
+  @Input({ required: true }) name!: string;
+
+  // The new way: using input signals - read only
+  // avatar = input.required<string>();
+  // name = input.required<string>();
+
+  get imagePath() {
+    return `/users/${this.avatar}`;
+  }
+  // The new way: using computed on sygnals
+  // imagePath = computed(() => {
+  //   return `/users/${this.avatar()}`;
+  // });
 
   onSelectUser() {
-    const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
-    this.selectedUser.set(DUMMY_USERS[randomIndex]);
+    this.select.emit(this.id);
   }
 }
