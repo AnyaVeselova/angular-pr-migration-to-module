@@ -3,7 +3,7 @@ main {
   max-width: 50rem;
   margin: 2.5rem auto;
   display: grid;
-  grid-auto-flow: row;
+  justify-content: center;
   gap: 2rem;
 }
 
@@ -11,7 +11,7 @@ main {
   list-style: none;
   margin: 0;
   padding: 0;
-  display: flex;
+  display: grid;
   gap: 0.5rem;
   overflow: auto;
 }
@@ -23,7 +23,7 @@ main {
   text-align: center;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 750px) {
   main {
     margin: 4rem auto;
     grid-template-columns: 1fr 3fr;
