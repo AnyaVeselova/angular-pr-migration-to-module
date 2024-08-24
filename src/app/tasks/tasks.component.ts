@@ -2,6 +2,7 @@ import { Component, Input, Output, EventEmitter, output } from '@angular/core';
 import { TaskComponent } from './task/task.component';
 import { dummyTasks } from '../dummy-tasks';
 import { NewTaskComponent } from './new-task/new-task.component';
+import { NewTaskData } from './task/task.model';
 @Component({
   selector: 'app-tasks',
   standalone: true,
@@ -17,7 +18,9 @@ export class TasksComponent {
   isAddingTask = false;
 
   get selectedUserTask() {
-    return this.tasks.filter((task) => task.userId === this.userId);
+    const tasks = this.tasks.filter((task) => task.userId === this.userId);
+    console.log('Filtered tasks:', tasks);
+    return tasks;
   }
 
   onCompleteTask(id: string) {
@@ -30,5 +33,16 @@ export class TasksComponent {
 
   onCancelAddTask() {
     this.isAddingTask = false;
+  }
+
+  onAddTask(taskData: NewTaskData) {
+    if (taskData && taskData.title && taskData.summary && taskData.dueDate) {
+      this.tasks.unshift({
+        id: new Date().getTime().toString(),
+        userId: this.userId,
+        ...taskData,
+      });
+      this.isAddingTask = false;
+    }
   }
 }
